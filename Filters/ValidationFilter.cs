@@ -24,3 +24,37 @@ public class ValidationFilter<T> : IEndpointFilter where T : class
         return await next(context);
     }
 }
+
+// public class UniversalValidationFilter : IEndpointFilter
+// {
+//     public async ValueTask<object?> InvokeAsync(EndpointFilterInvocationContext context, EndpointFilterDelegate next)
+//     {
+//         var validationErrors = new List<string>();
+//
+//         foreach (var argument in context.Arguments)
+//         {
+//             if (argument is null)
+//                 continue;
+//
+//             var validationContext = new ValidationContext(argument);
+//             var results = new List<ValidationResult>();
+//
+//             bool isValid = Validator.TryValidateObject(argument, validationContext, results, true);
+//
+//             if (!isValid)
+//             {
+//                 validationErrors.AddRange(results.Select(r => r.ErrorMessage ?? "Invalid value"));
+//             }
+//         }
+//
+//         if (validationErrors.Any())
+//         {
+//             return Results.BadRequest(new CustomErrorResponse
+//             {
+//                 Errors = validationErrors
+//             });
+//         }
+//
+//         return await next(context);
+//     }
+// }

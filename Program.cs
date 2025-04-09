@@ -6,6 +6,8 @@ using QueryString = minimal_validation.Models.QueryString;
 var builder = WebApplication.CreateBuilder(args);
 var app = builder.Build();
 
+// var api = app.MapGroup("/api").AddEndpointFilter<UniversalValidationFilter>();
+
 app.MapGet("/get", ([AsParameters] QueryString qString) => 
     Results.Ok((object?)qString)).AddEndpointFilter<ValidationFilter<QueryString>>();
 
